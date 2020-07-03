@@ -1,4 +1,4 @@
-function [force,potential,selection_force,cos_theta,p] = RepulsiveForce2DSpeed(vrep,clientID,joint_handles,dsflag,p,v,p0,pos,gamma,rou0,maxf)
+function [force,potential,selection_force,cos_theta,p] = RepulsiveForce2DSpeed(vrep,clientID,joint_handles,dsflag,b,p,v,p0,pos,gamma,rou0,maxf)
 %This function is used to calculate the repulsion and decision-making between the robot and the obstacle
 %   vrep,clientID,joint_handles :Parameters related to Vrep
 %   p :vector of test position
@@ -32,7 +32,7 @@ if  (d<=0.11)
     else
     end
     %Get decision-making force
-    if  cos_theta<-0.95
+    if  cos_theta<-0.95 && b>0
         [selection_force,~] = optiphi2D(vrep,clientID,joint_handles,p0,force,p,repulsive_vector);
     else
         selection_force = [0;0;0];
